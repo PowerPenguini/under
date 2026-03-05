@@ -20,6 +20,50 @@ vi.mock('maplibre-gl', () => {
   class MockMap {
     addControl() {}
 
+    on() {}
+
+    off() {}
+
+    addLayer() {}
+
+    getZoom() {
+      return 2
+    }
+
+    getBounds() {
+      return {
+        getSouth: () => 49,
+        getWest: () => 14,
+        getNorth: () => 55,
+        getEast: () => 24,
+        getCenter: () => ({ lat: 52, lng: 19 }),
+      }
+    }
+
+    setProjection() {
+      return this
+    }
+
+    getLayer() {
+      return {}
+    }
+
+    setLayoutProperty() {}
+
+    isStyleLoaded() {
+      return true
+    }
+
+    getCanvas() {
+      return document.createElement('canvas')
+    }
+
+    triggerRepaint() {}
+
+    easeTo() {
+      return this
+    }
+
     remove() {}
   }
 
@@ -28,6 +72,14 @@ vi.mock('maplibre-gl', () => {
       Map: MockMap,
       Marker: MockMarker,
       NavigationControl: MockNavigationControl,
+      MercatorCoordinate: {
+        fromLngLat: () => ({
+          x: 0,
+          y: 0,
+          z: 0,
+          meterInMercatorCoordinateUnits: () => 1,
+        }),
+      },
     },
   }
 })
@@ -37,14 +89,16 @@ describe('App', () => {
     const user = userEvent.setup()
     render(<App />)
 
+    const aircraftBtn = screen.getByRole('button', { name: 'Aircraft' })
     const satelliteBtn = screen.getByRole('button', { name: 'Satellites' })
     const cameraBtn = screen.getByRole('button', { name: 'Cameras' })
 
-    expect(satelliteBtn).toHaveAttribute('data-active', 'true')
+    expect(aircraftBtn).toHaveAttribute('data-active', 'true')
+    expect(satelliteBtn).toHaveAttribute('data-active', 'false')
 
     await user.click(cameraBtn)
 
     expect(cameraBtn).toHaveAttribute('data-active', 'true')
-    expect(satelliteBtn).not.toHaveAttribute('data-active', 'true')
+    expect(aircraftBtn).toHaveAttribute('data-active', 'true')
   })
 })

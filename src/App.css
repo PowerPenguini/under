@@ -99,6 +99,18 @@
   height: 100%;
 }
 
+.detail-stack {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 5;
+  width: min(300px, calc(100% - 24px));
+  display: grid;
+  gap: 0.55rem;
+  max-height: calc(100vh - 28px);
+  overflow-y: auto;
+}
+
 .intel-marker {
   width: 11px;
   height: 11px;
@@ -123,6 +135,284 @@
 
 .intel-marker[data-level='critical'] {
   background: var(--critical);
+}
+
+.intel-marker-camera {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.intel-marker-camera .camera-glyph {
+  display: grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.82));
+}
+
+.intel-marker-camera .camera-glyph svg {
+  width: 14px;
+  height: 14px;
+  stroke: #8bf7de;
+  fill: rgba(34, 219, 176, 0.18);
+  stroke-width: 1.6;
+}
+
+.intel-marker-satellite {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.intel-marker-satellite .satellite-glyph {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.8));
+}
+
+.intel-marker-satellite .satellite-glyph svg {
+  width: 15px;
+  height: 15px;
+  stroke: #c4d7ff;
+  fill: rgba(196, 215, 255, 0.16);
+  stroke-width: 1.55;
+}
+
+.intel-marker-satellite[data-level='medium'] .satellite-glyph svg {
+  stroke: #ffe49d;
+  fill: rgba(255, 228, 157, 0.2);
+}
+
+.intel-marker-satellite[data-level='high'] .satellite-glyph svg {
+  stroke: #ffb983;
+  fill: rgba(255, 185, 131, 0.22);
+}
+
+.intel-marker-satellite[data-level='critical'] .satellite-glyph svg {
+  stroke: #ff8ea2;
+  fill: rgba(255, 142, 162, 0.22);
+}
+
+.intel-marker-vessel {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: rotate(var(--vessel-rotation, 0deg));
+}
+
+.intel-marker-vessel .vessel-glyph {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(8, 11, 16, 0.64);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  filter:
+    drop-shadow(0 0 5px rgba(0, 0, 0, 0.85))
+    drop-shadow(0 0 6px rgba(150, 220, 255, 0.45));
+}
+
+.intel-marker-vessel .vessel-glyph svg {
+  width: 16px;
+  height: 16px;
+  stroke: #d2f0ff;
+  fill: rgba(139, 214, 255, 0.42);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.intel-marker-vessel[data-level='medium'] .vessel-glyph svg {
+  stroke: #fff0b5;
+  fill: rgba(255, 228, 157, 0.48);
+}
+
+.intel-marker-vessel[data-level='high'] .vessel-glyph svg {
+  stroke: #ffd0ac;
+  fill: rgba(255, 185, 131, 0.52);
+}
+
+.intel-marker-vessel[data-level='critical'] .vessel-glyph svg {
+  stroke: #ffc0cb;
+  fill: rgba(255, 142, 162, 0.5);
+}
+
+.intel-marker-aircraft {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: rotate(var(--aircraft-rotation, 0deg));
+}
+
+.intel-marker-aircraft .aircraft-glyph {
+  display: grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.75));
+}
+
+.intel-marker-aircraft .aircraft-glyph svg {
+  width: 14px;
+  height: 14px;
+  fill: #e8eefc;
+}
+
+.intel-marker-aircraft[data-level='medium'] .aircraft-glyph svg {
+  fill: #ffe499;
+}
+
+.intel-marker-aircraft[data-level='high'] .aircraft-glyph svg {
+  fill: #ffb07a;
+}
+
+.intel-marker-aircraft[data-level='critical'] .aircraft-glyph svg {
+  fill: #ff7388;
+}
+
+.flight-detail-card {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.65rem;
+  background: rgba(10, 11, 14, 0.88);
+  backdrop-filter: blur(6px);
+  padding: 0.6rem 0.7rem;
+  display: grid;
+  gap: 0.28rem;
+}
+
+.flight-detail-card header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.1rem;
+}
+
+.flight-detail-card header strong {
+  font-size: 0.8rem;
+}
+
+.flight-detail-card header span {
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+}
+
+.flight-detail-card p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-size: 0.68rem;
+}
+
+.flight-detail-card p span {
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+.flight-detail-card p strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.sat-imagery {
+  margin-top: 0.3rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sat-imagery h4 {
+  margin: 0 0 0.28rem;
+  font-size: 0.66rem;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.flight-focus-btn {
+  margin-top: 0.3rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.45rem;
+  background: rgba(33, 36, 41, 0.94);
+  color: var(--text-main);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  padding: 0.42rem 0.5rem;
+  cursor: pointer;
+}
+
+.flight-focus-btn:hover {
+  background: rgba(49, 53, 59, 0.95);
+}
+
+.camera-preview-placeholder {
+  margin-top: 0.3rem;
+  border: 1px dashed rgba(255, 255, 255, 0.24);
+  border-radius: 0.42rem;
+  padding: 0.45rem 0.5rem;
+  color: var(--text-dim);
+  font-size: 0.66rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+.camera-preview-link {
+  margin-top: 0.3rem;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.42rem;
+  overflow: hidden;
+  background: rgba(8, 10, 12, 0.92);
+}
+
+.camera-preview-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.camera-stream-frame {
+  margin-top: 0.3rem;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.42rem;
+  background: rgba(8, 10, 12, 0.92);
+}
+
+.camera-stream-link {
+  margin-top: 0.35rem;
+  display: inline-block;
+  color: #9ed3ff;
+  font-size: 0.66rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(158, 211, 255, 0.3);
+}
+
+.camera-stream-link:hover {
+  color: #cde8ff;
+  border-bottom-color: rgba(205, 232, 255, 0.55);
 }
 
 .maplibregl-ctrl-group {
